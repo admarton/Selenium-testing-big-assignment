@@ -26,6 +26,10 @@ class PageBase {
         return this.driver.findElement(locator);
     } 
     
+    public String getPageTitle() {
+        return this.driver.getTitle();
+    }
+
     public String getBodyText() {
         WebElement bodyElement = this.waitAndReturnElement(By.tagName("body"));
         return bodyElement.getText();

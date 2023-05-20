@@ -19,9 +19,9 @@ class MainPage extends PageBase {
     
     public MainPage(WebDriver driver) {
         super(driver);
-        this.driver.get("https://www.inf.elte.hu/en/");
+        this.driver.get("https://consteelsoftware.com/");
     }    
-    
+
     public String getFooterText() {
         return this.waitAndReturnElement(footerBy).getText();
     }
