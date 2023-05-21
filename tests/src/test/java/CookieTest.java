@@ -28,16 +28,16 @@ public class CookieTest {
     
     @Test
     public void testAcceptCookiePopup() {
-        ManualPage manualPage = new ManualPage(this.driver);
-        Assert.assertTrue(manualPage.isAcceptCookiePopupExists());
+        MainPage mainPage = new MainPage(this.driver);
+        Assert.assertTrue(mainPage.isAcceptCookiePopupExists());
     }
 
     @Test
     public void testNoAcceptCookiePopup() {
-        ManualPage manualPage = new ManualPage(this.driver);
-        manualPage.addCookieAgreedCookie();
-        manualPage.reload();
-        Assert.assertFalse(manualPage.isAcceptCookiePopupExists());
+        MainPage mainPage = new MainPage(this.driver);
+        mainPage.addCookieAgreedCookie();
+        mainPage.reload();
+        Assert.assertFalse(mainPage.isAcceptCookiePopupExists());
     }
 
     @After

@@ -12,14 +12,14 @@ import org.openqa.selenium.NoSuchElementException;
 
 
 class NavBar extends PageBase {
-    private By logoBy = By.xpath("//a[@href='https://consteelsoftware.com']//img[@src='https://consteelsoftware.com/wp-content/uploads/2022/07/cropped-new_logo-1.png']");
+    private By navItemsBy = By.xpath("//nav/div[@class='Navbar_right__EAgLc']");
 
     public NavBar(WebDriver driver) {
         super(driver);
     }    
 
-    public String getLogoAltText() {
-        return this.waitAndReturnElement(logoBy).getAttribute("alt");
+    public String getText() {
+        return this.waitAndReturnElement(navItemsBy).getText();
     }
            
 }

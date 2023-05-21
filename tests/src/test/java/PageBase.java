@@ -16,7 +16,8 @@ import org.openqa.selenium.NoSuchElementException;
 class PageBase {
     protected WebDriver driver;
     protected WebDriverWait wait;
-    By cookieBy = By.xpath("/html/body/div[@class='cookie-agreement']");
+
+    By cookieBy = By.xpath("//div[@id='onetrust-button-group']/button[@id='onetrust-accept-btn-handler']");
     
     public PageBase(WebDriver driver) {
         this.driver = driver;
@@ -42,7 +43,7 @@ class PageBase {
     }
 
     public void addCookieAgreedCookie() {
-        this.driver.manage().addCookie(new Cookie("cookie-agreed","true"));
+        this.driver.manage().addCookie(new Cookie("OptanonAlertBoxClosed","2023-05-21T17:05:41.095Z"));
     }
 
     public boolean isAcceptCookiePopupExists() {

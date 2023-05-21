@@ -30,12 +30,15 @@ public class StaticPageTest {
     public void testMainPage() {
         MainPage mainPage = new MainPage(this.driver);
         NavBar navBar = new NavBar(this.driver);
-        Assert.assertTrue(mainPage.getPageTitle().contains("Consteel"));
-        Assert.assertTrue(mainPage.getPageTitle().contains("Truly calculate your structures"));
-        Assert.assertTrue(mainPage.getBodyText().contains("Consteel"));
-        Assert.assertTrue(navBar.getLogoAltText().contains("Consteel Solutions Kft."));
+        Assert.assertTrue(mainPage.getPageTitle().contains("Pexels"));
+        Assert.assertTrue(mainPage.getPageTitle().contains("Free Stock Photos"));
+        Assert.assertTrue(mainPage.getBodyText().contains("Pexels"));
+        Assert.assertTrue(navBar.getText().contains("Explore"));
+        Assert.assertTrue(navBar.getText().contains("License"));
+        Assert.assertTrue(navBar.getText().contains("Upload"));
+        Assert.assertTrue(navBar.getText().contains("Join"));
     }
-
+    
     @After
     public void close() {
         if (driver != null) {

@@ -19,7 +19,7 @@ class MainPage extends PageBase {
     
     public MainPage(WebDriver driver) {
         super(driver);
-        this.driver.get("https://consteelsoftware.com/");
+        this.driver.get("https://www.pexels.com/");
     }    
 
     public String getFooterText() {
