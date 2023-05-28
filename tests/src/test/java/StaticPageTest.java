@@ -29,11 +29,10 @@ public class StaticPageTest {
     @Test
     public void testMainPage() {
         MainPage mainPage = new MainPage(this.driver);
-        NavBar navBar = new NavBar(this.driver);
-        Assert.assertTrue(mainPage.getPageTitle().contains("Consteel"));
-        Assert.assertTrue(mainPage.getPageTitle().contains("Truly calculate your structures"));
-        Assert.assertTrue(mainPage.getBodyText().contains("Consteel"));
-        Assert.assertTrue(navBar.getLogoAltText().contains("Consteel Solutions Kft."));
+        Assert.assertTrue(mainPage.getPageTitle().contains("Fantasmania"));
+        Assert.assertTrue(mainPage.getPageTitle().contains("Figura"));
+        Assert.assertTrue(mainPage.getFooterText().contains("fantasmaniajatekbolt@gmail.com"));
+        Assert.assertTrue(mainPage.getFooterText().contains("Unibrand Hungary Kft"));
     }
 
     @After

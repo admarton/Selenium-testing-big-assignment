@@ -13,8 +13,13 @@ import org.openqa.selenium.NoSuchElementException;
 
 class SearchResultPage extends PageBase {
 
+    private By cartButtonBy = By.xpath("//td[@class='main']/a/img[@src='includes/languages/hungary/images/buttons/button_buy_now.gif']");
+
     public SearchResultPage(WebDriver driver) {
         super(driver);
-    }    
-           
+    }
+
+    public void PutFirstItemIntoCart() {
+        waitAndReturnElement(cartButtonBy).click();
+    }
 }

@@ -25,19 +25,26 @@ public class CookieTest {
         driver = new RemoteWebDriver(new URL("http://selenium:4444/wd/hub"), options);
         driver.manage().window().maximize();
     }
-    
+
     @Test
-    public void testAcceptCookiePopup() {
-        ManualPage manualPage = new ManualPage(this.driver);
-        Assert.assertTrue(manualPage.isAcceptCookiePopupExists());
+    public void testCartNotShowingWithoutIDCookie() {
+        MainPage mainPage = new MainPage(this.driver);
+        SearchResultPage searchResult = mainPage.search("star wars");
+        searchResult.PutFirstItemIntoCart();
+        CartPage cartPage = new CartPage(this.driver);
+        Assert.assertTrue(cartPage.isCartNotEmpty());
+        cartPage.removeCookies();
+        cartPage.reload();
+        Assert.assertTrue(cartPage.isCartEmpty());
     }
 
     @Test
-    public void testNoAcceptCookiePopup() {
-        ManualPage manualPage = new ManualPage(this.driver);
-        manualPage.addCookieAgreedCookie();
-        manualPage.reload();
-        Assert.assertFalse(manualPage.isAcceptCookiePopupExists());
+    public void testMoveToCartCreatesIDCookie() {
+        MainPage mainPage = new MainPage(this.driver);
+        Assert.assertFalse(mainPage.IsCookieExists("osCsid"));
+        SearchResultPage searchResult = mainPage.search("star wars");
+        searchResult.PutFirstItemIntoCart();
+        Assert.assertTrue(mainPage.IsCookieExists("osCsid"));
     }
 
     @After

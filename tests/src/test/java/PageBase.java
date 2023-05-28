@@ -41,19 +41,13 @@ class PageBase {
         return bodyElement.getText();
     }
 
-    public void addCookieAgreedCookie() {
-        this.driver.manage().addCookie(new Cookie("cookie-agreed","true"));
+    public void removeCookies() {
+        this.driver.manage().deleteAllCookies();
     }
 
-    public boolean isAcceptCookiePopupExists() {
-        try {
-            this.waitAndReturnElement(cookieBy);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        } catch (TimeoutException e) {
-            return false;
-        }
+    public boolean IsCookieExists(String name) {
+        Cookie cookie = driver.manage().getCookieNamed(name);
+        return null != cookie;
     }
    
 }
