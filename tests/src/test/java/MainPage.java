@@ -13,23 +13,22 @@ import org.openqa.selenium.NoSuchElementException;
 
 class MainPage extends PageBase {
 
-    private By footerBy = By.className("footer-block");
-    private By searchBarTogglerBy = By.xpath("//a[@class='search-bar-toggler']/i");
-    private By searchBarBy = By.name("search");
+    private By footerBy = By.xpath("/html/body/table/tbody/tr/td/div");
+    private By searchBarBy = By.xpath("//form[@name='search']/input[@name='keywords']");
+    private By searchBarButtonBy = By.xpath("//form[@name='search']/input[@type='image']");
     
     public MainPage(WebDriver driver) {
         super(driver);
-        this.driver.get("https://consteelsoftware.com/");
+        this.driver.get("http://fantasmania.hu/");
     }    
 
     public String getFooterText() {
         return this.waitAndReturnElement(footerBy).getText();
     }
     
-    public SearchResultPage search(String searchQuery) {
-        this.waitAndReturnElement(searchBarTogglerBy).click();
-        
-        this.waitAndReturnElement(searchBarBy).sendKeys(searchQuery + "\n");
+    public SearchResultPage search(String searchQuery) {     
+        this.waitAndReturnElement(searchBarBy).sendKeys(searchQuery);
+        this.waitAndReturnElement(searchBarButtonBy).click();
         return new SearchResultPage(this.driver);
     }
 }

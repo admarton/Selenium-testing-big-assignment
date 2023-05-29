@@ -16,7 +16,8 @@ import org.openqa.selenium.NoSuchElementException;
 class PageBase {
     protected WebDriver driver;
     protected WebDriverWait wait;
-    By cookieBy = By.xpath("/html/body/div[@class='cookie-agreement']");
+    By headerNavBy = By.xpath("//table/tbody/tr[@class='headerNavigation']");
+    By logoutButtonBy = By.xpath("//table/tbody/tr[@class='headerNavigation']//a[@href='http://fantasmania.hu/logoff.php']");
     
     public PageBase(WebDriver driver) {
         this.driver = driver;
@@ -41,19 +42,24 @@ class PageBase {
         return bodyElement.getText();
     }
 
-    public void addCookieAgreedCookie() {
-        this.driver.manage().addCookie(new Cookie("cookie-agreed","true"));
+    public void removeCookies() {
+        this.driver.manage().deleteAllCookies();
     }
 
-    public boolean isAcceptCookiePopupExists() {
-        try {
-            this.waitAndReturnElement(cookieBy);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        } catch (TimeoutException e) {
-            return false;
-        }
+    public boolean IsCookieExists(String name) {
+        Cookie cookie = driver.manage().getCookieNamed(name);
+        return null != cookie;
     }
    
+    public boolean isLoggedIn() {
+        return waitAndReturnElement(headerNavBy).getText().contains("Kilépés");
+    }
+   
+    public boolean isNotLoggedIn() {
+        return waitAndReturnElement(headerNavBy).getText().contains("Belépés");
+    }
+
+    public void Logout() {
+        waitAndReturnElement(logoutButtonBy).click();
+    }
 }

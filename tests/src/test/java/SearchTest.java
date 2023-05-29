@@ -16,7 +16,7 @@ import java.net.URL;
 import java.net.MalformedURLException;
 
 
-public class FirstSeleniumTest {
+public class SearchTest {
     public WebDriver driver;
     
     @Before
@@ -29,27 +29,35 @@ public class FirstSeleniumTest {
     @Test
     public void testSearch() {
         MainPage mainPage = new MainPage(this.driver);
-        Assert.assertTrue(mainPage.getFooterText().contains("2021 ELTE Faculty of Informatics"));
+        Assert.assertTrue(mainPage.getFooterText().contains("Unibrand Hungary Kft"));
 
-        SearchResultPage searchResultPage = mainPage.search("Students");
+        SearchResultPage searchResultPage = mainPage.search("nincs találat");
         String bodyText = searchResultPage.getBodyText();
-        System.out.println(bodyText);
-        Assert.assertTrue(bodyText.contains("FOUND"));
-        Assert.assertTrue(bodyText.contains("Current Students"));
+        Assert.assertTrue(bodyText.contains("Ezzel a szóval nem találtuk a terméket."));
     }
     
     @Test
-    public void testSearch2() {
+    public void testSearchFound() {
+        String[] searchQueries={"star wars","pókember","marvel"};  
+        for(String searchQuery : searchQueries) {  
+            MainPage mainPage = new MainPage(this.driver);
+            SearchResultPage searchResultPage = mainPage.search(searchQuery);
+            String bodyText = searchResultPage.getBodyText();
+            Assert.assertTrue(bodyText.contains("Lista"));
+            Assert.assertTrue(bodyText.contains("Összesen"));
+        }  
+    }
+    
+    @Test
+    public void testSearchNotFound() {
         String[] searchQueries={"something","","xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"};  
         for(String searchQuery : searchQueries) {  
             MainPage mainPage = new MainPage(this.driver);
             SearchResultPage searchResultPage = mainPage.search(searchQuery);
             String bodyText = searchResultPage.getBodyText();
-            Assert.assertTrue(bodyText.contains("FOUND"));
+            Assert.assertTrue(bodyText.contains("Ezzel a szóval nem találtuk a terméket."));
         }  
     }
-    
-
     
     @After
     public void close() {

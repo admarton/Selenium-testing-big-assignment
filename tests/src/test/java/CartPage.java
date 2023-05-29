@@ -12,16 +12,30 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 
 
-class ManualPage extends PageBase {
+class CartPage extends PageBase {
     
-    public ManualPage(WebDriver driver) {
+    private By checkoutBy = By.xpath("//td/form[@name='cart_quantity']//a/img[@alt='Pénztár']");
+    private By nextBy = By.xpath("//td/form[@name='cart_quantity']//a/img[@alt='Folytatás']");
+
+    public CartPage(WebDriver driver) {
         super(driver);
-        this.driver.get("https://consteelsoftware.com/manual/");
+        this.driver.get("http://fantasmania.hu/shopping_cart.php");
     }  
 
-    public boolean isPageLocked() {
+    public boolean isCartNotEmpty() {
         try {
-            this.waitAndReturnElement(By.xpath("//div[@class='servicecenter-manual-authgate']/img[@src='https://consteelsoftware.com/wp-content/themes/consteel/assets/login_required_illustration.svg']"));
+            this.waitAndReturnElement(checkoutBy);
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    public boolean isCartEmpty() {
+        try {
+            this.waitAndReturnElement(nextBy);
             return true;
         } catch (NoSuchElementException e) {
             return false;
