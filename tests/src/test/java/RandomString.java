@@ -1,8 +1,8 @@
 class RandomString {
-    static String getAplhaNumeric(int length) {
+    static String getAlphaNumeric(int length) {
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
          + "0123456789"
-         + "abcdefghijklmnopqrstuvxyz";
+         + "abcdefghijklmnopqrstuvwxyz";
 
         StringBuilder sb = new StringBuilder(length);
  
