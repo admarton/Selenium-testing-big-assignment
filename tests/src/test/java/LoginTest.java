@@ -15,15 +15,23 @@ import java.util.*;
 import java.net.URL;
 import java.net.MalformedURLException;
 
+import java.io.*;
+import java.util.Properties;
 
 public class LoginTest {
     public WebDriver driver;
-    
+    private Properties config;
+
     @Before
-    public void setup()  throws MalformedURLException  {
+    public void setup()  throws MalformedURLException, java.io.FileNotFoundException, java.io.IOException {
         ChromeOptions options = new ChromeOptions();
         driver = new RemoteWebDriver(new URL("http://selenium:4444/wd/hub"), options);
         driver.manage().window().maximize();
+
+        String configFilePath = "src/config.properties";
+        FileInputStream propsInput = new FileInputStream(configFilePath);
+        config = new Properties();
+        config.load(propsInput);
     }
     
     @Test
@@ -31,7 +39,8 @@ public class LoginTest {
         MainPage mainPage = new MainPage(this.driver);
         Assert.assertTrue(mainPage.isNotLoggedIn());
         LoginPage loginPage = new LoginPage(this.driver);
-        loginPage.Login("hemaki@vomoto.com", "jelszo");
+        loginPage.Login(config.getProperty("TEST_USER_EMAIL"),
+            config.getProperty("TEST_USER_PASSWORD"));
         Assert.assertTrue(loginPage.isLoggedIn());
         loginPage.Logout();
         mainPage = new MainPage(this.driver);
